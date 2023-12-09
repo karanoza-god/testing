@@ -1,0 +1,7 @@
+[connections]
+accountname = ${SF_ACCOUNT}
+username = ${SF_USERNAME}
+password = ${SNOWFLAKE_PASSWORD}
+warehousename = ${SF_WAREHOUSE}
+databasename = ${SF_DATABASE}
+rolename = ${SF_ROLE}
