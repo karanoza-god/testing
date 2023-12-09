@@ -58,6 +58,12 @@ jobs:
 
     - name: Execute SQL queries
       run: |
-        for file in $(ls sql_files/*.sql); do
-          ~/bin/snowsql -f $file
-        done
+        # Get the newest SQL file
+        newest_file=$(ls -t sql_files/*.sql | head -n 1)
+    
+        # Check if a file exists before attempting to execute
+        if [ -n "$newest_file" ]; then
+          ~/bin/snowsql -f "$newest_file"
+        else
+          echo "No SQL file found in the sql_files folder."
+        fi
