@@ -33,7 +33,7 @@ jobs:
 
     - name: Configure SnowSQL
       run: |
-        ~/bin/snowsql -a ${SF_ACCOUNT} -u ${SF_USERNAME} -r ${SF_ROLE} -w ${SF_WAREHOUSE} -d ${SF_DATABASE} -p ${SNOWFLAKE_PASSWORD}
+        ~/bin/snowsql -a ${SF_ACCOUNT} -u ${SF_USERNAME} -r ${SF_ROLE} -w ${SF_WAREHOUSE} -d ${SF_DATABASE}
 
     - name: Use Python 3.7
       uses: actions/setup-python@v2
