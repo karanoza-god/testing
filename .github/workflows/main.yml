@@ -28,8 +28,8 @@ jobs:
 
     - name: Install SnowSQL
       run: |
-        wget https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/2.10/linux_x86_64/snowsql-2.10.0-linux_x86_64.bash
-        bash snowsql-2.10.0-linux_x86_64.bash
+        wget https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap-latest/linux_x86_64/snowsql-latest-linux_x86_64.bash
+        bash snowsql-latest-linux_x86_64.bash
 
     - name: Configure SnowSQL
       run: |
