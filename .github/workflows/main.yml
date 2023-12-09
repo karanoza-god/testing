@@ -33,7 +33,10 @@ jobs:
 
     - name: Configure SnowSQL
       run: |
-        ~/bin/snowsql -a ${SF_ACCOUNT} -u ${SF_USERNAME} -r ${SF_ROLE} -w ${SF_WAREHOUSE} -d ${SF_DATABASE}
+        mkdir -p ~/.snowsql/
+        cat config > ~/.snowsql/config
+        chmod 700 ~/.snowsql/config
+        ~/bin/snowsql -c ~/.snowsql/config
 
     - name: Use Python 3.7
       uses: actions/setup-python@v2
