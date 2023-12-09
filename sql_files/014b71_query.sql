@@ -1,1 +1,0 @@
-Select * from your_table;
