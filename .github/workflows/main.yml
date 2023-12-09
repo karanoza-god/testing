@@ -20,7 +20,7 @@ jobs:
       SF_ROLE: ${{ secrets.SF_ROLE }}
       SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
       SF_DATABASE: ${{ secrets.SF_DATABASE }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
 
     steps:
     - name: Checkout repository
@@ -43,7 +43,6 @@ jobs:
         echo "rolename = ${SF_ROLE}" >> ~/.snowsql/config
         chmod 700 ~/.snowsql/config
         cat ~/.snowsql/config
-        env
         ~/bin/snowsql -c ~/.snowsql/config -o log_level=DEBUG
 
     - name: Use Python 3.7
