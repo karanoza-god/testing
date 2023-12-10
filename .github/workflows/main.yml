@@ -60,7 +60,7 @@ jobs:
       run: |
         # Get the newest SQL file
         newest_file=$(ls -t sql_files/*.sql | tail -n 1)
-        echo "Executing $sql_file"
+        echo "Executing $newest_file"
         
         # Check if a file exists before attempting to execute
         if [ -n "$newest_file" ]; then
