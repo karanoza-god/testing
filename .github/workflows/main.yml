@@ -64,9 +64,7 @@ jobs:
         
         newest_file=$(ls -t sql_files/*.sql | sort -n | tail -n 1)
         echo "Selected file: $newest_file"
-        
-        newest_file=$(ls -t sql_files/*.sql | tail -n 1)
-        
+
         # Check if a file exists before attempting to execute
         if [ -n "$newest_file" ]; then
           ~/bin/snowsql -f "$newest_file"
