@@ -58,14 +58,24 @@ jobs:
 
     - name: Execute SQL queries
       run: |
-        # Get the newest SQL file
-        newest_file=$(find sql_files -type f -name "*.sql" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)
+        # Lock file path
+        lock_file="/tmp/sql_execution_lock"
         
-        # Check if a file exists before attempting to execute
-        if [ -n "$newest_file" ]; then
-          echo "Executing $newest_file"
-          ~/bin/snowsql -f "$newest_file"
+        # Acquire lock
+        if mkdir "$lock_file"; then
+            trap 'rm -r "$lock_file"' EXIT  # Release lock on script exit
+        
+            # Get the newest SQL file
+            newest_file=$(find sql_files -type f -name "*.sql" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)
+        
+            # Check if a file exists before attempting to execute
+            if [ -n "$newest_file" ]; then
+              echo "Executing $newest_file"
+              ~/bin/snowsql -f "$newest_file"
+            else
+              echo "No SQL file found in the sql_files folder."
+            fi
         else
-          echo "No SQL file found in the sql_files folder."
+            echo "Another process is currently executing. Exiting."
         fi
         
