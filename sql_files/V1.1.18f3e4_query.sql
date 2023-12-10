@@ -1,1 +1,0 @@
-Use Schema Exercise;;

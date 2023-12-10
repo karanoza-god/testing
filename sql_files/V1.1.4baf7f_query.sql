@@ -1,1 +1,0 @@
-Create table queries.exercise.example(A integer, B integer);
