@@ -58,14 +58,15 @@ jobs:
 
     - name: Execute SQL queries
       run: |
-        # Get the SQL file from the workflow environment variable
-        sql_file_path="$GITHUB_WORKSPACE/$(jq -r .client_payload.path $GITHUB_EVENT_PATH)"
+        # Get the newest SQL file
+        newest_file=$(find sql_files -type f -name "*.sql" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)
         
-        # Check if the specified file exists before attempting to execute
-        if [ -f "$sql_file_path" ]; then
-            echo "Executing $sql_file_path"
-            ~/bin/snowsql -f "$sql_file_path"
+        # Check if a file exists before attempting to execute
+        if [ -n "$newest_file" ]; then
+          echo "Executing $newest_file"
+          ~/bin/snowsql -f "$newest_file"
         else
-            echo "Specified SQL file not found: $sql_file_path"
+          echo "No SQL file found in the sql_files folder."
         fi
+
 
