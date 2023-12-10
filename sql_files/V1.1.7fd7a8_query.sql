@@ -1,1 +1,0 @@
-Use database test_db;
