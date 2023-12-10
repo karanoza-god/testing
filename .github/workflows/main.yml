@@ -67,3 +67,4 @@ jobs:
         else
           echo "No SQL file found in the sql_files folder."
         fi
+        
