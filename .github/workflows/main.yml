@@ -58,24 +58,13 @@ jobs:
 
     - name: Execute SQL queries
       run: |
-        # Lock file path
-        lock_file="/tmp/sql_execution_lock"
+        # Get the SQL file from the workflow environment variable
+        sql_file_path="$GITHUB_WORKSPACE/$GITHUB_EVENT_PATH"
         
-        # Acquire lock
-        if mkdir "$lock_file"; then
-            trap 'rm -r "$lock_file"' EXIT  # Release lock on script exit
-        
-            # Get the newest SQL file
-            newest_file=$(find sql_files -type f -name "*.sql" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)
-        
-            # Check if a file exists before attempting to execute
-            if [ -n "$newest_file" ]; then
-              echo "Executing $newest_file"
-              ~/bin/snowsql -f "$newest_file"
-            else
-              echo "No SQL file found in the sql_files folder."
-            fi
+        # Check if the specified file exists before attempting to execute
+        if [ -f "$sql_file_path" ]; then
+            echo "Executing $sql_file_path"
+            ~/bin/snowsql -f "$sql_file_path"
         else
-            echo "Another process is currently executing. Exiting."
+            echo "Specified SQL file not found: $sql_file_path"
         fi
-        
