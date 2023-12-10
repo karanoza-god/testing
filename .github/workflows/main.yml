@@ -59,6 +59,12 @@ jobs:
     - name: Execute SQL queries
       run: |
         # Get the newest SQL file
+        echo "Files in sql_files folder:"
+        ls sql_files/*.sql
+        
+        newest_file=$(ls -t sql_files/*.sql | tail -n 1)
+        echo "Selected file: $newest_file"
+        
         newest_file=$(ls -t sql_files/*.sql | tail -n 1)
         
         # Check if a file exists before attempting to execute
