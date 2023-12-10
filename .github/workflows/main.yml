@@ -59,7 +59,7 @@ jobs:
     - name: Execute SQL queries
       run: |
         # Get the SQL file from the workflow environment variable
-        sql_file_path="$GITHUB_WORKSPACE/$GITHUB_EVENT_PATH"
+        sql_file_path="$GITHUB_WORKSPACE/$(jq -r .client_payload.path $GITHUB_EVENT_PATH)"
         
         # Check if the specified file exists before attempting to execute
         if [ -f "$sql_file_path" ]; then
@@ -68,3 +68,4 @@ jobs:
         else
             echo "Specified SQL file not found: $sql_file_path"
         fi
+
