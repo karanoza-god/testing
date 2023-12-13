@@ -61,6 +61,8 @@ jobs:
         # Get the newest SQL file based on modification time
         echo "Files in sql_files folder:"
         find sql_files/table -type f -name '*.sql' -exec stat --printf="%Y %n" {} + | awk '{print $2}'
+        echo "File parameter value: ${{ github.event.inputs.file }}"
+
         
         newest_file=$(ls -1t sql_files/table/**.sql | xargs stat --format="%Y %n" | awk '{print $2}')
         echo "Selected file: $newest_file"
