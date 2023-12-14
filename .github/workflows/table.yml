@@ -60,6 +60,7 @@ jobs:
       run: |
         # Get the newest SQL file based on modification time
         changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+        echo "GitHub SHA: ${{ github.sha }}"
         echo "Changed files: $changed_files"
 
         
