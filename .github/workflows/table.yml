@@ -62,11 +62,14 @@ jobs:
 
     - name: List all changed files
       run: |
-        changed_files=""
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-          changed_files="$changed_files $file"
+          echo "Processing file: $file"
+          if [ -f "$file" ]; then
+            ~/bin/snowsql -f "$file"
+          else
+            echo "File not found: $file"
+          fi
         done
-        echo "Changed files: $changed_files"
         
     - name: Execute SQL queries
       run: |
