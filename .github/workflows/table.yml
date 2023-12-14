@@ -60,7 +60,7 @@ jobs:
       id: changed-files
       uses: tj-actions/changed-files@v40
 
-    - name: List all changed files
+    - name: Execute SQL Queries
       run: |
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
           echo "Processing file: $file"
@@ -70,27 +70,3 @@ jobs:
             echo "File not found: $file"
           fi
         done
-        
-    - name: Execute SQL queries
-      run: |
-
-        # Assuming the changed_files variable contains the list of changed files
-        for file in $changed_files; do
-          echo "Processing file: $file"
-          ~/bin/snowsql -f "$file"
-        done
-        
-        # Get the newest SQL file based on modification time
-        #changed_files=$(for file in ${{ steps.changed-files.outputs.all_changed_files }};)
-        #echo "Changed files: $changed_files"
-
-        
-        #newest_file=$(ls -1t sql_files/table/**.sql | xargs stat --format="%Y %n" | awk '{print $2}')
-        #echo "Selected file: $newest_file"
-        
-        # Check if a file exists before attempting to execute
-        #if [ -n "$newest_file" ]; then
-          #~/bin/snowsql -f "$newest_file"
-        #else
-          #echo "No SQL file found in the sql_files folder."
-        #fi
