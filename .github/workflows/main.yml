@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'sql_files/**'
+      - 'sql_files/table/**'
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Install SnowSQL
       run: |
@@ -56,18 +56,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install snowflake-connector-python
 
-    - name: Execute SQL queries
-      run: |
-        # Get the newest SQL file
-        echo "Files in sql_files folder:"
-        ls sql_files/*.sql
-        
-        newest_file=$(ls -t sql_files/*.sql | sort -n | tail -n 1)
-        echo "Selected file: $newest_file"
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v40
 
-        # Check if a file exists before attempting to execute
-        if [ -n "$newest_file" ]; then
-          ~/bin/snowsql -f "$newest_file"
-        else
-          echo "No SQL file found in the sql_files folder."
-        fi
+    - name: Execute SQL Queries
+      run: |
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "Processing file: $file"
+          if [ -f "$file" ]; then
+            ~/bin/snowsql -f "$file"
+          else
+            echo "File not found: $file"
+          fi
+        done
