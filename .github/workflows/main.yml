@@ -6,12 +6,8 @@ on:
       - main
     paths:
       - 'sql_files/**'
-
-
-  # Trigger the workflow only when a new file is created
-  create:
-    paths:
-      - 'sql_files/**'
+  label:
+    types: [created]
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
