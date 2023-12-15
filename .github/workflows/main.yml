@@ -25,6 +25,7 @@ jobs:
       SF_ROLE: ${{ secrets.SF_ROLE }}
       SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
       SF_DATABASE: ${{ secrets.SF_DATABASE }}
+      SF_SCHEMA: ${{ secrets.SF_SCHEMA }}
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
 
     steps:
@@ -45,6 +46,7 @@ jobs:
         echo "password = ${SNOWFLAKE_PASSWORD}" >> ~/.snowsql/config
         echo "warehousename = ${SF_WAREHOUSE}" >> ~/.snowsql/config
         echo "databasename = ${SF_DATABASE}" >> ~/.snowsql/config
+        echo "schemaname = ${SF_SCHEMA}" >> ~/.snowsql/config
         echo "rolename = ${SF_ROLE}" >> ~/.snowsql/config
         chmod 700 ~/.snowsql/config
         cat ~/.snowsql/config
