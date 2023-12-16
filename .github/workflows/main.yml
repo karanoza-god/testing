@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'sql_files/**'
+    paths-ignore:
+      - 'sql_files/table/**'
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
