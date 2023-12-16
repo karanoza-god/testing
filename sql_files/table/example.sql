@@ -1,1 +1,0 @@
-Create table example(A integer, B integer);
