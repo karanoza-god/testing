@@ -1,0 +1,1 @@
+create table prod_db.prod_schema.test5(a integer, b integer);
