@@ -1,4 +1,4 @@
-name: Execute Snowflake Queries
+name: Execute Changed Queries
 
 on:
   push:
