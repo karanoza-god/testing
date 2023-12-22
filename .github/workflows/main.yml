@@ -14,7 +14,7 @@ on:
 jobs:
   run-snowflake-queries:
     runs-on: ubuntu-latest
-    environment: testing_env
+    #environment: testing_env
 
     env:
       SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
