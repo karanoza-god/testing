@@ -7,6 +7,7 @@ on:
     paths:
       - 'sql_files/**'
       - '!sql_files/Latest_DDL/**'
+      - '!sql_files/existing_files/**'
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
