@@ -1,0 +1,1 @@
+create or replace TABLE TEST11 (A NUMBER(38,0),B NUMBER(38,0),C NUMBER(38,0));
