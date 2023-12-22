@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      #- 'sql_files/**'
-      - '.github/**'
+    paths:
+      - 'sql_files/**'
       - 'sql_files/Latest_DDL/**'
       - 'sql_files/existing_file/**'
 
