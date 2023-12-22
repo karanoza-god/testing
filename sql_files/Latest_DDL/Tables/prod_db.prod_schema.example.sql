@@ -1,1 +1,0 @@
-create or replace TABLE EXAMPLE (A NUMBER(38,0),B NUMBER(38,0),C NUMBER(38,0));
