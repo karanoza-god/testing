@@ -1,0 +1,1 @@
+create table ANALYTICS.DWH.TEST(A integer, B integer);
