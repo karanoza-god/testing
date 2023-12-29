@@ -1,1 +1,0 @@
-create table prod_db.prod_schema.test21(A integer, B integer);
