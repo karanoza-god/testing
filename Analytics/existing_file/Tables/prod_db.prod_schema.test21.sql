@@ -1,1 +1,0 @@
-alter table prod_db.prod_schema.test21 add column C integer;
