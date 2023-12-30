@@ -1,12 +1,17 @@
 name: Execute Snowflake Queries
 
 on:
+  #push:
   pull_request:
+    types:
+      - closed
     branches:
       - main
-    paths:
-      - 'sql_files/**'
-      - '!sql_files/Latest_DDL/**'
+    paths-ignore:
+      - '.github/**'
+      - 'Analytics/Tables/**'
+      - 'Analytics/Views/**'
+      - 'Analytics/Procedures/**'
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
@@ -23,7 +28,7 @@ jobs:
       SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
       SF_DATABASE: ${{ secrets.SF_DATABASE }}
       SF_SCHEMA: ${{ secrets.SF_SCHEMA }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
 
     steps:
     - name: Checkout repository
@@ -40,7 +45,7 @@ jobs:
         echo '[connections]' > ~/.snowsql/config
         echo "accountname = ${SF_ACCOUNT}" >> ~/.snowsql/config
         echo "username = ${SF_USERNAME}" >> ~/.snowsql/config
-        echo "password = ${SNOWFLAKE_PASSWORD}" >> ~/.snowsql/config
+        echo "password = \"${SF_PASSWORD}\"" >> ~/.snowsql/config
         echo "warehousename = ${SF_WAREHOUSE}" >> ~/.snowsql/config
         echo "databasename = ${SF_DATABASE}" >> ~/.snowsql/config
         echo "schemaname = ${SF_SCHEMA}" >> ~/.snowsql/config
@@ -67,10 +72,15 @@ jobs:
     - name: Execute SQL Queries
       run: |
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-          echo "Processing file: $file"
-          if [ -f "$file" ]; then
-            ~/bin/snowsql -f "$file"
+          # Check if the file matches the paths to be ignored
+          if echo "$file" | grep -E '(\.github|Analytics/Tables|Analytics/Views|Analytics/Procedures)'; then
+            echo "Skipping file: $file"
           else
-            echo "File not found: $file"
+            echo "Processing file: $file"
+            if [ -f "$file" ]; then
+              ~/bin/snowsql -f "$file"
+            else
+              echo "File not found: $file"
+            fi
           fi
         done
