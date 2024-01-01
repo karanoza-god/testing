@@ -1,1 +1,0 @@
-create table prod_db.prod_schema.function(A integer, B integer);
