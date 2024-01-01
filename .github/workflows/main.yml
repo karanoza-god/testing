@@ -10,8 +10,6 @@ on:
     paths-ignore:
       - '.github/**'
       - 'Analytics/Tables/**'
-      - 'Analytics/Views/**'
-      - 'Analytics/Procedures/**'
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
