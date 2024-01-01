@@ -73,7 +73,7 @@ jobs:
       run: |
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
           # Check if the file matches the paths to be ignored
-          if echo "$file" | grep -E '(\.github|Analytics/Tables|Analytics/Views|Analytics/Procedures)'; then
+          if echo "$file" | grep -E '(\.github|Analytics/Tables)'; then
             echo "Skipping file: $file"
           else
             echo "Processing file: $file"
